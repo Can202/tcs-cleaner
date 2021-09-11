@@ -1,13 +1,55 @@
 #!/bin/bash
 
-dialog --title "titulo" --yesno "Limpiar directorio /tmp (temporar)" 0 0
+if [ ! $(whoami) = "root" ]
+then
+    dialog --title "root" --msgbox "You need root" 0 0
+    clear
+    exit
+fi
+dialog --title "tmp" --yesno "Limpiar directorio /tmp (temporar)" 0 0
 if [ $? = 0 ]
 then
     rm -vfr /tmp/*
     rm -vfr /var/tmp/*
 fi
-dialog --title "titulo" --yesno "Vaciar Papelera?" 0 0
+dialog --title "trash" --yesno "Vaciar Papelera?" 0 0
 if [ $? = 0 ]
 then
     rm -vfr ~/.local/share/Trash/*
 fi
+
+#gestor de paquetes
+if [ -f "/usr/bin/zypper" ] || [ -f "/usr/sbin/zypper" ] || [ -f "/usr/games/zypper" ]
+then
+    dialog --title "zypper" --yesno "Actualizar de zypper?" 0 0
+    if [ $? = 0 ]
+    then
+        zypper ref
+        zypper up
+    fi
+    dialog --title "zypper" --yesno "eliminar paquetes innecesarios de zypper?" 0 0
+    if [ $? = 0 ]
+    then
+        zypper packages --unneeded | awk -F'|' 'NR==0 || NR==1 || NR==2 || NR==3 || NR==4 {next} {print $3}' | grep -v Name | sudo xargs zypper remove --clean-deps
+    fi
+fi
+
+
+
+if [ -f "/usr/bin/snap" ] || [ -f "/usr/sbin/snap" ] || [ -f "/usr/games/snap" ]
+then
+    dialog --title "snap" --yesno "Actualizar snap?" 0 0
+    if [ $? = 0 ]
+    then
+        snap refresh
+    fi
+fi
+if [ -f "/usr/bin/flatpak" ] || [ -f "/usr/sbin/flatpak" ] || [ -f "/usr/games/flatpak" ]
+then
+    dialog --title "flatpak" --yesno "Actualizar flatpak?" 0 0
+    if [ $? = 0 ]
+    then
+        flatpak update
+    fi
+fi
+clear
