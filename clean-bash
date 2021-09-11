@@ -1,0 +1,13 @@
+#!/bin/bash
+
+dialog --title "titulo" --yesno "Limpiar directorio /tmp (temporar)" 0 0
+if [ $? = 0 ]
+then
+    rm -vfr /tmp/*
+    rm -vfr /var/tmp/*
+fi
+dialog --title "titulo" --yesno "Vaciar Papelera?" 0 0
+if [ $? = 0 ]
+then
+    rm -vfr ~/.local/share/Trash/*
+fi
