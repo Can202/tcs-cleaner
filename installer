@@ -50,7 +50,7 @@ else
     fi
 fi
 
-version=$(cat https://raw.githubusercontent.com/Can202/tcs-cleaner/dev/version)
+version=$(curl https://raw.githubusercontent.com/Can202/tcs-cleaner/dev/version)
 
 echo "remove tcs-cleaner if it's installed"
 rm -vrf /usr/bin/tcs-cleaner
