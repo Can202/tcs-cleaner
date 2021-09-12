@@ -1,5 +1,5 @@
 #!/bin/bash
-version="v0.2-1"
+version="v0.2-2"
 
 if [ ! -z $1 ]
 then
@@ -119,6 +119,8 @@ else
         exit
     fi
 fi
+
+
 last_version=$(curl https://raw.githubusercontent.com/Can202/tcs-cleaner/main/version)
 dialog --title "Alert" --yesno "this script is a thorough cleaning, recommended: read very well, what the script is doing. Continue?" 0 0
 if [ ! $? = 0 ]
@@ -126,6 +128,12 @@ then
     clear
     exit
 fi
+
+dialog --title "News $version" --msgbox "Hi!
+- now you can clear cache of snap
+- now you can read the news" 0 0
+
+
 if [ -f "/usr/bin/tcs-cleaner" ]
 then
 	if [ ! $last_version = $version ]
@@ -284,6 +292,12 @@ then
         clear
         snap refresh
     fi
+    dialog --title "snap" --yesno "clean cache from snap?" 0 0
+    if [ $? = 0 ]
+    then
+        rm -vrf /var/lib/snapd/cache/*
+    fi
+    
 fi
 if [ -f "/usr/bin/flatpak" ] || [ -f "/usr/sbin/flatpak" ] || [ -f "/usr/games/flatpak" ]
 then
