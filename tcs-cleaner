@@ -1,5 +1,5 @@
 #!/bin/bash
-version="v0.2-2"
+version="v0.2-3"
 
 if [ ! -z $1 ]
 then
@@ -130,8 +130,10 @@ then
 fi
 
 dialog --title "News $version" --msgbox "Hi!
-- now you can clear cache of snap
-- now you can read the news" 0 0
+- fix desktops files
+- add pip cache
+- add firefox cache
+" 0 0
 
 
 if [ -f "/usr/bin/tcs-cleaner" ]
@@ -152,13 +154,20 @@ then
 fi
 
 
-dialog --title "tmp" --yesno "Clean temps folder (thumbnails, tmp directory, etc)" 0 0
+dialog --title "tmp" --yesno "Clean temps and cache folders:
+- global tmp directory
+- thumbnails user cache folder
+- pip and firefox user chache
+" 0 0
 if [ $? = 0 ]
 then
 	rm -vrf /tmp/* 2>/dev/null
 	rm -vrf /var/tmp/* 2>/dev/null
 	su $user -c 'rm -vrf ~/.cache/thumbnails/* 2>/dev/null'
 	su $user -c 'rm -vrf ~/.thumbs/* 2>/dev/null'
+	su $user -c 'rm -vrf ~/.cache/pip/* 2>/dev/null'
+	su $user -c 'rm -vrf ~/.cache/mozilla/firefox/* 2>/dev/null'
+	
 fi
 dialog --title "trash" --yesno "Clean trash?" 0 0
 if [ $? = 0 ]

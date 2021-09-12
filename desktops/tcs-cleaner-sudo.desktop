@@ -1,4 +1,4 @@
- [Desktop Entry]
+[Desktop Entry]
 Categories=Utility
 Exec=tcs-cleaner --sudo
 Icon=tcs-cleaner
