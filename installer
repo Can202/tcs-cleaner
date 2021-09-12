@@ -62,6 +62,7 @@ cd /tmp/
 rm -vrf tcs-cleaner
 mkdir -p tcs-cleaner
 cd tcs-cleaner/
+
 curl -LO https://raw.githubusercontent.com/Can202/tcs-cleaner/$version/tcs-cleaner
 chmod a+x tcs-cleaner
 cp tcs-cleaner /usr/bin/tcs-cleaner
@@ -69,3 +70,18 @@ cp tcs-cleaner /usr/bin/tcs-cleaner
 curl -LO https://raw.githubusercontent.com/Can202/tcs-cleaner/$version/tcs-cleaner-remove
 chmod a+x tcs-cleaner-remove
 cp tcs-cleaner-remove /usr/bin/tcs-cleaner-remove
+
+
+curl -LO https://raw.githubusercontent.com/Can202/tcs-cleaner/$version/desktops/tcs-cleaner-su.desktop
+curl -LO https://raw.githubusercontent.com/Can202/tcs-cleaner/$version/desktops/tcs-cleaner-sudo.desktop
+curl -LO https://raw.githubusercontent.com/Can202/tcs-cleaner/$version/desktops/tcs-cleaner.desktop
+chmod a+x tcs-cleaner-su.desktop
+chmod a+x tcs-cleaner-sudo.desktop
+chmod a+x tcs-cleaner.desktop
+cp tcs-cleaner.desktop /usr/share/applications/
+cp tcs-cleaner-sudo.desktop /usr/share/applications/
+cp tcs-cleaner-su.desktop /usr/share/applications/
+
+curl -LO https://raw.githubusercontent.com/Can202/tcs-cleaner/$version/desktops/tcs-cleaner.png
+cp tcs-cleaner.png /usr/share/icons/hicolor/256x256/apps/tcs-cleaner.png
+

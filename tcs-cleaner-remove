@@ -14,3 +14,6 @@ fi
 echo "remove tcs-cleaner if it's installed"
 rm -vrf /usr/bin/tcs-cleaner
 rm -vrf /usr/bin/tcs-cleaner-remove
+
+rm -vrf /usr/share/applications/tcs-cleaner*
+rm -vrf /usr/share/icons/hicolor/256x256/apps/tcs-cleaner.png
