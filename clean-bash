@@ -37,7 +37,7 @@ then
         zypper ref
         zypper up
     fi
-    dialog --title "zypper" --yesno "remove unnecessary packages from zypper?" 0 0
+    dialog --title "zypper" --yesno "remove unnecessary packages and clean chache from zypper?" 0 0
     if [ $? = 0 ]
     then
         zypper packages --unneeded | awk -F'|' 'NR==0 || NR==1 || NR==2 || NR==3 || NR==4 {next} {print $3}' | grep -v Name | sudo xargs zypper remove --clean-deps
@@ -52,7 +52,7 @@ then
         apt update
         apt upgrade
     fi
-    dialog --title "apt" --yesno "remove unnecessary packages from apt?" 0 0
+    dialog --title "apt" --yesno "remove unnecessary packages and clean chache from apt?" 0 0
     if [ $? = 0 ]
     then
         apt autoremove
@@ -67,7 +67,7 @@ then
     then
         dnf upgrade --refresh
     fi
-    dialog --title "dnf" --yesno "remove unnecessary packages from dnf?" 0 0
+    dialog --title "dnf" --yesno "remove unnecessary packages and clean chache from dnf?" 0 0
     if [ $? = 0 ]
     then
         dnf autoremove
@@ -81,10 +81,11 @@ then
     then
         pacman -Syu
     fi
-    dialog --title "pacman" --yesno "remove unnecessary packages from pacman?" 0 0
+    dialog --title "pacman" --yesno "remove unnecessary packages and clean chache from pacman?" 0 0
     if [ $? = 0 ]
     then
         pacman -Rs $(pacman -Qtdq)
+        pacman -Sc
     fi
 fi
 if [ -f "/usr/bin/eopkg" ] || [ -f "/usr/sbin/eopkg" ] || [ -f "/usr/games/eopkg" ]
@@ -93,6 +94,11 @@ then
     if [ $? = 0 ]
     then
         eopkg upgrade
+    fi
+    dialog --title "eopkg" --yesno "clean cache from eopkg?" 0 0
+    if [ $? = 0 ]
+    then
+        eopkg delete-cache
     fi
 fi
 
