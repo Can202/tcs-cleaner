@@ -17,7 +17,48 @@ then
     echo
 else
     echo "you don't have installed dialog"
-    exit
+    echo "Do you want to install dialog? (Y/n)"
+    read install
+    if [ $install = "y" ] || [ $install = "Y" ]
+    then
+        echo "installing"
+        if [ -f "/usr/bin/zypper" ] || [ -f "/usr/sbin/zypper" ] || [ -f "/usr/games/zypper" ]
+        then
+            echo zypper detected
+            zypper in dialog
+        else
+            if [ -f "/usr/bin/apt" ] || [ -f "/usr/sbin/apt" ] || [ -f "/usr/games/apt" ]
+            then
+                echo apt detected
+                apt install dialog
+            else
+                if [ -f "/usr/bin/dnf" ] || [ -f "/usr/sbin/dnf" ] || [ -f "/usr/games/dnf" ]
+                then
+                    echo dnf detected
+                    dnf install dialog
+                else
+                    if [ -f "/usr/bin/pacman" ] || [ -f "/usr/sbin/pacman" ] || [ -f "/usr/games/pacman" ]
+                    then
+                        echo pacman detected
+                        pacman -S dialog
+                    else
+                        if [ -f "/usr/bin/eopkg" ] || [ -f "/usr/sbin/eopkg" ] || [ -f "/usr/games/eopkg" ]
+                        then
+                            echo eopkg detected
+                            eopkg install dialog
+                        else
+                            echo "aborting"
+                            exit
+                        fi
+                    fi
+                fi
+            fi
+        fi
+
+    else
+        echo "aborting"
+        exit
+    fi
 fi
 
 dialog --title "Alert" --yesno "this script is a thorough cleaning, recommended: read very well, what the script is doing. Continue?" 0 0
