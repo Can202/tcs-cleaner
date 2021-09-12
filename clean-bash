@@ -49,7 +49,7 @@ then
     then
         zypper ref
         zypper up
-        dialog --title "Alert" --yesno "If the update was to big, it's recommended restart, and then continue with the script. Restart the system?" 0 0if [ $? = 0 ]
+        dialog --title "Alert" --yesno "If the update was to big, it's recommended restart, and then continue with the script. Restart the system?" 0 0
         if [ $? = 0 ]
         then
             reboot
@@ -69,7 +69,7 @@ then
     then
         apt update
         apt upgrade
-        dialog --title "Alert" --yesno "If the update was to big, it's recommended restart, and then continue with the script. Restart the system?" 0 0if [ $? = 0 ]
+        dialog --title "Alert" --yesno "If the update was to big, it's recommended restart, and then continue with the script. Restart the system?" 0 0
         if [ $? = 0 ]
         then
             reboot
@@ -89,7 +89,7 @@ then
     if [ $? = 0 ]
     then
         dnf upgrade --refresh
-        dialog --title "Alert" --yesno "If the update was to big, it's recommended restart, and then continue with the script. Restart the system?" 0 0if [ $? = 0 ]
+        dialog --title "Alert" --yesno "If the update was to big, it's recommended restart, and then continue with the script. Restart the system?" 0 0
         if [ $? = 0 ]
         then
             reboot
@@ -108,7 +108,7 @@ then
     if [ $? = 0 ]
     then
         pacman -Syu
-        dialog --title "Alert" --yesno "If the update was to big, it's recommended restart, and then continue with the script. Restart the system?" 0 0if [ $? = 0 ]
+        dialog --title "Alert" --yesno "If the update was to big, it's recommended restart, and then continue with the script. Restart the system?" 0 0
         if [ $? = 0 ]
         then
             reboot
@@ -127,7 +127,7 @@ then
     if [ $? = 0 ]
     then
         eopkg upgrade
-        dialog --title "Alert" --yesno "If the update was to big, it's recommended restart, and then continue with the script. Restart the system?" 0 0if [ $? = 0 ]
+        dialog --title "Alert" --yesno "If the update was to big, it's recommended restart, and then continue with the script. Restart the system?" 0 0
         if [ $? = 0 ]
         then
             reboot
