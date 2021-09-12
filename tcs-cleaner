@@ -1,4 +1,15 @@
 #!/bin/bash
+version="v0.1"
+
+if [ ! -z $1 ]
+then
+	if [ $1 = "-v" ] || [ $1 = "--version" ]
+	then
+		echo $version
+		exit
+	fi
+fi
+
 clear
 if [ ! $(whoami) = "root" ]
 then
@@ -60,7 +71,6 @@ else
     fi
 fi
 last_version=$(curl https://raw.githubusercontent.com/Can202/tcs-cleaner/main/version)
-version="dev"
 dialog --title "Alert" --yesno "this script is a thorough cleaning, recommended: read very well, what the script is doing. Continue?" 0 0
 if [ ! $? = 0 ]
 then
