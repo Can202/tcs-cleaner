@@ -72,7 +72,13 @@ if [ ! $last_version = $version ]
 then
 	if [[ ! $last_version == *" "* ]]
 	then
-		echo "new version"
+		dialog --title "New Update!!" --yesno "There is a new update of this script, you can install it, do you want to do?" 0 0
+		if [ $? = 0 ]
+		then
+			curl https://raw.githubusercontent.com/Can202/tcs-cleaner/$last_version/installer | bash
+			lxterminal -e "tcs-cleaner" &
+			exit
+		fi
 	fi
 fi
 
