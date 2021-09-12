@@ -129,8 +129,8 @@ if [ $? = 0 ]
 then
 	rm -vrf /tmp/* 2>/dev/null
 	rm -vrf /var/tmp/* 2>/dev/null
-	rm -vrf ~/.cache/thumbnails/* 2>/dev/null
-	rm -vrf ~/.thumbs/* 2>/dev/null
+	su $user -c 'rm -vrf ~/.cache/thumbnails/* 2>/dev/null'
+	su $user -c 'rm -vrf ~/.thumbs/* 2>/dev/null'
 fi
 dialog --title "trash" --yesno "Clean trash?" 0 0
 if [ $? = 0 ]
