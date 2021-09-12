@@ -73,6 +73,14 @@ then
         pacman -Rs $(pacman -Qtdq)
     fi
 fi
+if [ -f "/usr/bin/eopkg" ] || [ -f "/usr/sbin/eopkg" ] || [ -f "/usr/games/eopkg" ]
+then
+    dialog --title "eopkg" --yesno "Update from eopkg?" 0 0
+    if [ $? = 0 ]
+    then
+        eopkg upgrade
+    fi
+fi
 
 
 
