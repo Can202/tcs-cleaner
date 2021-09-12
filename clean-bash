@@ -12,6 +12,14 @@ then
     exit
 fi
 
+if [ -f "/usr/bin/dialog" ] || [ -f "/usr/sbin/dialog" ] || [ -f "/usr/games/dialog" ]
+then
+    echo
+else
+    echo "you don't have installed dialog"
+    exit
+fi
+
 dialog --title "Alert" --yesno "this script is a thorough cleaning, recommended: read very well, what the script is doing. Continue?" 0 0
 if [ ! $? = 0 ]
 then
