@@ -13,3 +13,4 @@ fi
 
 echo "remove tcs-cleaner if it's installed"
 rm -vrf /usr/bin/tcs-cleaner
+rm -vrf /usr/bin/tcs-cleaner-remove

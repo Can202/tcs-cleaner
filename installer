@@ -52,6 +52,7 @@ fi
 
 echo "remove tcs-cleaner if it's installed"
 rm -vrf /usr/bin/tcs-cleaner
+rm -vrf /usr/bin/tcs-cleaner-remove
 
 
 echo "getting the last version of tcs-cleaner"
@@ -62,3 +63,7 @@ cd tcs-cleaner/
 curl -LO https://raw.githubusercontent.com/Can202/tcs-cleaner/main/tcs-cleaner
 chmod a+x tcs-cleaner
 cp tcs-cleaner /usr/bin/tcs-cleaner
+
+curl -LO https://raw.githubusercontent.com/Can202/tcs-cleaner/main/tcs-cleaner-remove
+chmod a+x tcs-cleaner-remove
+cp tcs-cleaner-remove /usr/bin/tcs-cleaner-remove
