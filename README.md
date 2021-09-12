@@ -4,13 +4,13 @@
 ### Please install curl and dialog
 ### curl and sudo
 ~~~
-curl https://raw.githubusercontent.com/Can202/clean-bash/main/clean-bash | sudo bash
+cd /tmp && rm -vrf clean-bash && curl -LO https://raw.githubusercontent.com/Can202/clean-bash/main/clean-bash && chmod a+x /tmp/clean-bash && sudo /tmp/clean-bash
 ~~~
 ### curl and su
 ~~~
-su root -c 'curl https://raw.githubusercontent.com/Can202/clean-bash/main/clean-bash | bash'
+cd /tmp && rm -vrf clean-bash && curl -LO https://raw.githubusercontent.com/Can202/clean-bash/main/clean-bash && chmod a+x /tmp/clean-bash && su -c '/tmp/clean-bash'
 ~~~
 ### curl and pkexec
 ~~~
-curl https://raw.githubusercontent.com/Can202/clean-bash/main/clean-bash | pkexec bash
+cd /tmp && rm -vrf clean-bash && curl -LO https://raw.githubusercontent.com/Can202/clean-bash/main/clean-bash && chmod a+x /tmp/clean-bash && pkexec /tmp/clean-bash
 ~~~
