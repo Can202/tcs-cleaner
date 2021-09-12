@@ -18,29 +18,29 @@ if [ -f "/usr/bin/zypper" ] || [ -f "/usr/sbin/zypper" ] || [ -f "/usr/games/zyp
 then
     echo zypper detected
     zypper ref
-    zypper in dialog curl coreutils bash lxterminal
+    zypper in dialog curl coreutils bash
 else
     if [ -f "/usr/bin/apt" ] || [ -f "/usr/sbin/apt" ] || [ -f "/usr/games/apt" ]
     then
         echo apt detected
         apt update
-        apt install dialog curl coreutils bash lxterminal
+        apt install dialog curl coreutils bash
     else
         if [ -f "/usr/bin/dnf" ] || [ -f "/usr/sbin/dnf" ] || [ -f "/usr/games/dnf" ]
         then
             echo dnf detected
-            dnf install dialog curl coreutils bash lxterminal
+            dnf install dialog curl coreutils bash
         else
             if [ -f "/usr/bin/pacman" ] || [ -f "/usr/sbin/pacman" ] || [ -f "/usr/games/pacman" ]
             then
                 echo pacman detected
                 pacman -Syy
-                pacman -S dialog curl coreutils bash lxterminal
+                pacman -S dialog curl coreutils bash
             else
                 if [ -f "/usr/bin/eopkg" ] || [ -f "/usr/sbin/eopkg" ] || [ -f "/usr/games/eopkg" ]
                 then
                     echo eopkg detected
-                    eopkg install dialog curl coreutils bash lxterminal
+                    eopkg install dialog curl coreutils bash
                 else
                     echo "aborting"
                     exit
