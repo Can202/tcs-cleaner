@@ -47,6 +47,32 @@ then
         apt autoremove
     fi
 fi
+if [ -f "/usr/bin/dnf" ] || [ -f "/usr/sbin/dnf" ] || [ -f "/usr/games/dnf" ]
+then
+    dialog --title "dnf" --yesno "Update from dnf?" 0 0
+    if [ $? = 0 ]
+    then
+        dnf upgrade --refresh
+    fi
+    dialog --title "dnf" --yesno "remove unnecessary packages from dnf?" 0 0
+    if [ $? = 0 ]
+    then
+        dnf autoremove
+    fi
+fi
+if [ -f "/usr/bin/pacman" ] || [ -f "/usr/sbin/pacman" ] || [ -f "/usr/games/pacman" ]
+then
+    dialog --title "pacman" --yesno "Update from pacman?" 0 0
+    if [ $? = 0 ]
+    then
+        pacman -Syu
+    fi
+    dialog --title "pacman" --yesno "remove unnecessary packages from pacman?" 0 0
+    if [ $? = 0 ]
+    then
+        pacman -Rs $(pacman -Qtdq)
+    fi
+fi
 
 
 
