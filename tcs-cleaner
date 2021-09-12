@@ -59,14 +59,23 @@ else
         exit
     fi
 fi
-version=$(cat https://raw.githubusercontent.com/Can202/tcs-cleaner/dev/version)
-
+last_version=$(curl https://raw.githubusercontent.com/Can202/tcs-cleaner/dev/version)
+version="dev"
 dialog --title "Alert" --yesno "this script is a thorough cleaning, recommended: read very well, what the script is doing. Continue?" 0 0
 if [ ! $? = 0 ]
 then
     clear
     exit
 fi
+
+if [ ! $last_version = $version ]
+then
+	if [[ ! $last_version = *" "* ]]
+	then
+		echo "new version"
+	fi
+fi
+
 
 dialog --title "tmp" --yesno "Clean temps folder (thumbnails, tmp directory, etc)" 0 0
 if [ $? = 0 ]
