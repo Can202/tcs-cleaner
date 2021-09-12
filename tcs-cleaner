@@ -76,7 +76,6 @@ then
 		if [ $? = 0 ]
 		then
 			curl https://raw.githubusercontent.com/Can202/tcs-cleaner/$last_version/installer | bash
-			lxterminal -e "tcs-cleaner" &
 			exit
 		fi
 	fi
