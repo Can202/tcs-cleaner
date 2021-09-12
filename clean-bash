@@ -87,6 +87,7 @@ then
     dialog --title "zypper" --yesno "Update from zypper?" 0 0
     if [ $? = 0 ]
     then
+        clear
         zypper ref
         zypper up
         dialog --title "Alert" --yesno "If the update was to big, it's recommended restart, and then continue with the script. Restart the system?" 0 0
@@ -98,6 +99,7 @@ then
     dialog --title "zypper" --yesno "remove unnecessary packages and clean chache from zypper?" 0 0
     if [ $? = 0 ]
     then
+        clear
         zypper packages --unneeded | awk -F'|' 'NR==0 || NR==1 || NR==2 || NR==3 || NR==4 {next} {print $3}' | grep -v Name | sudo xargs zypper remove --clean-deps
         zypper cc
     fi
