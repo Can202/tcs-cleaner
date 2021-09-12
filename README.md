@@ -10,3 +10,7 @@ curl https://raw.githubusercontent.com/Can202/clean-bash/main/clean-bash | sudo 
 ~~~
 su root -c 'curl https://raw.githubusercontent.com/Can202/clean-bash/main/clean-bash | bash'
 ~~~
+### curl and pkexec
+~~~
+curl https://raw.githubusercontent.com/Can202/clean-bash/main/clean-bash | pkexec bash
+~~~
