@@ -59,7 +59,7 @@ else
         exit
     fi
 fi
-last_version=$(curl https://raw.githubusercontent.com/Can202/tcs-cleaner/dev/version)
+last_version=$(curl https://raw.githubusercontent.com/Can202/tcs-cleaner/main/version)
 version="dev"
 dialog --title "Alert" --yesno "this script is a thorough cleaning, recommended: read very well, what the script is doing. Continue?" 0 0
 if [ ! $? = 0 ]
@@ -75,6 +75,7 @@ then
 		dialog --title "New Update!!" --yesno "There is a new update of this script, you can install it, do you want to do?" 0 0
 		if [ $? = 0 ]
 		then
+			clear
 			curl https://raw.githubusercontent.com/Can202/tcs-cleaner/$last_version/installer | bash
 			exit
 		fi
