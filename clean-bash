@@ -6,11 +6,13 @@ then
     clear
     exit
 fi
-dialog --title "tmp" --yesno "Clean /tmp (temp folder)" 0 0
+dialog --title "tmp" --yesno "Clean temps folder (thumbnails, tmp directory, etc)" 0 0
 if [ $? = 0 ]
 then
     rm -vfr /tmp/*
     rm -vfr /var/tmp/*
+    rm -vfr ~/.cache/thumbnails/*
+    rm -vfr ~/.thumbs/*
 fi
 dialog --title "trash" --yesno "Clean trash?" 0 0
 if [ $? = 0 ]
