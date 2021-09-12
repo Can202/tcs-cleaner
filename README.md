@@ -2,12 +2,15 @@
 
 # Install:
 do you need just curl
+## sudo
 ~~~
 curl https://raw.githubusercontent.com/Can202/tcs-cleaner/main/installer | sudo bash
 ~~~
+## su
 ~~~
 su root -c 'curl https://raw.githubusercontent.com/Can202/tcs-cleaner/main/installer | bash'
 ~~~
+## pkexec
 ~~~
 curl https://raw.githubusercontent.com/Can202/tcs-cleaner/main/installer | pkexec bash
 ~~~
