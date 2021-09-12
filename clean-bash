@@ -1,5 +1,5 @@
 #!/bin/bash
-
+clear
 if [ ! $(whoami) = "root" ]
 then
     if [ -f "/usr/bin/dialog" ] || [ -f "/usr/sbin/dialog" ] || [ -f "/usr/games/dialog" ]
