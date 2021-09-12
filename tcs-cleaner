@@ -3,6 +3,21 @@ version="v0.1-3"
 
 if [ ! -z $1 ]
 then
+	if [ $1 = "--su" ]
+	then
+		su root -c "tcs-cleaner $USER"
+		exit
+	fi
+	if [ $1 = "--sudo" ]
+	then
+		sudo tcs-cleaner $USER
+		exit
+	fi
+	if [ $1 = "--pkexec" ]
+	then
+		pkexec tcs-cleaner $USER
+		exit
+	fi
 	if [ $1 = "-v" ] || [ $1 = "--version" ]
 	then
 		echo $version
@@ -12,6 +27,11 @@ then
 	then
 		echo "tcs-cleaner: clean
 		
+Auto detect:
+	--pkexec	start with current user with pkexec
+	--sudo		start with current user with sudo
+	--su		start with current user with su root
+	
 Use as root:
 	tcs-cleaner <user>
 	
