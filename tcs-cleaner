@@ -70,7 +70,7 @@ fi
 
 if [ ! $last_version = $version ]
 then
-	if [[ ! $last_version = *" "* ]]
+	if [[ ! $last_version == *" "* ]]
 	then
 		echo "new version"
 	fi
