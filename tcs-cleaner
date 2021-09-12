@@ -155,7 +155,9 @@ fi
 dialog --title "trash" --yesno "Clean trash?" 0 0
 if [ $? = 0 ]
 then
-    su $user -c 'rm -vfr ~/.local/share/Trash/*'
+    su $user -c 'rm -vfr ~/.local/share/Trash/info/* 2>/dev/null'
+	su $user -c 'mkdir -p /home/$user/.local/share/Trash/info'
+
 fi
 
 #gestor de paquetes
@@ -170,6 +172,7 @@ then
         dialog --title "Alert" --yesno "If the update was to big, it's recommended restart, and then continue with the script. Yes = Continue, No = Exit" 0 0
         if [ ! $? = 0 ]
         then
+			clear
             exit
         fi
     fi
@@ -192,6 +195,7 @@ then
         dialog --title "Alert" --yesno "If the update was to big, it's recommended restart, and then continue with the script. Yes = Continue, No = Exit" 0 0
         if [ ! $? = 0 ]
         then
+			clear
             exit
         fi
     fi
@@ -214,6 +218,7 @@ then
         dialog --title "Alert" --yesno "If the update was to big, it's recommended restart, and then continue with the script. Yes = Continue, No = Exit" 0 0
         if [ ! $? = 0 ]
         then
+			clear
             exit
         fi
     fi
@@ -235,6 +240,7 @@ then
         dialog --title "Alert" --yesno "If the update was to big, it's recommended restart, and then continue with the script. Yes = Continue, No = Exit" 0 0
         if [ ! $? = 0 ]
         then
+			clear
             exit
         fi
     fi
@@ -256,6 +262,7 @@ then
         dialog --title "Alert" --yesno "If the update was to big, it's recommended restart, and then continue with the script. Yes = Continue, No = Exit" 0 0
         if [ ! $? = 0 ]
         then
+			clear
             exit
         fi
     fi
