@@ -47,6 +47,8 @@ then
     if [ $? = 0 ]
     then
         apt autoremove
+        apt autoclean
+        apt clean
     fi
 fi
 if [ -f "/usr/bin/dnf" ] || [ -f "/usr/sbin/dnf" ] || [ -f "/usr/games/dnf" ]
