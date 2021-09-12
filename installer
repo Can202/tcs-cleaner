@@ -1,0 +1,64 @@
+#!/usr/bin/bash
+if [ ! $(whoami) = "root" ]
+then
+    if [ -f "/usr/bin/dialog" ] || [ -f "/usr/sbin/dialog" ] || [ -f "/usr/games/dialog" ]
+    then
+        dialog --title "root" --msgbox "You need run this script as root" 0 0
+    else
+        echo "You need run this script as root"
+    fi
+    clear
+    exit
+fi
+
+#Depends
+
+echo "installing depends"
+if [ -f "/usr/bin/zypper" ] || [ -f "/usr/sbin/zypper" ] || [ -f "/usr/games/zypper" ]
+then
+    echo zypper detected
+    zypper ref
+    zypper in dialog curl coreutils bash
+else
+    if [ -f "/usr/bin/apt" ] || [ -f "/usr/sbin/apt" ] || [ -f "/usr/games/apt" ]
+    then
+        echo apt detected
+        apt update
+        apt install dialog curl coreutils bash
+    else
+        if [ -f "/usr/bin/dnf" ] || [ -f "/usr/sbin/dnf" ] || [ -f "/usr/games/dnf" ]
+        then
+            echo dnf detected
+            dnf install dialog curl coreutils bash
+        else
+            if [ -f "/usr/bin/pacman" ] || [ -f "/usr/sbin/pacman" ] || [ -f "/usr/games/pacman" ]
+            then
+                echo pacman detected
+                pacman -Syy
+                pacman -S dialog curl coreutils bash
+            else
+                if [ -f "/usr/bin/eopkg" ] || [ -f "/usr/sbin/eopkg" ] || [ -f "/usr/games/eopkg" ]
+                then
+                    echo eopkg detected
+                    eopkg install dialog curl coreutils bash
+                else
+                    echo "aborting"
+                    exit
+                fi
+            fi
+        fi
+    fi
+fi
+
+echo "remove tcs-cleaner if it's installed"
+rm -vrf /usr/bin/tcs-cleaner
+
+
+echo "getting the last version of tcs-cleaner"
+cd /tmp/
+rm -vrf tcs-cleaner
+mkdir -p tcs-cleaner
+cd tcs-cleaner/
+curl -LO https://raw.githubusercontent.com/Can202/tcs-cleaner/main/tcs-cleaner
+chmod a+x tcs-cleaner
+cp tcs-cleaner /usr/bin/tcs-cleaner
