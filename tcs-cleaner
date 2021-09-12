@@ -106,10 +106,10 @@ then
         clear
         zypper ref
         zypper up
-        dialog --title "Alert" --yesno "If the update was to big, it's recommended restart, and then continue with the script. Restart the system?" 0 0
-        if [ $? = 0 ]
+        dialog --title "Alert" --yesno "If the update was to big, it's recommended restart, and then continue with the script. Yes = Continue, No = Exit" 0 0
+        if [ ! $? = 0 ]
         then
-            reboot
+            exit
         fi
     fi
     dialog --title "zypper" --yesno "remove unnecessary packages and clean chache from zypper?" 0 0
@@ -128,10 +128,10 @@ then
         clear
         apt update
         apt upgrade
-        dialog --title "Alert" --yesno "If the update was to big, it's recommended restart, and then continue with the script. Restart the system?" 0 0
-        if [ $? = 0 ]
+        dialog --title "Alert" --yesno "If the update was to big, it's recommended restart, and then continue with the script. Yes = Continue, No = Exit" 0 0
+        if [ ! $? = 0 ]
         then
-            reboot
+            exit
         fi
     fi
     dialog --title "apt" --yesno "remove unnecessary packages and clean chache from apt?" 0 0
@@ -150,10 +150,10 @@ then
     then
         clear
         dnf upgrade --refresh
-        dialog --title "Alert" --yesno "If the update was to big, it's recommended restart, and then continue with the script. Restart the system?" 0 0
-        if [ $? = 0 ]
+        dialog --title "Alert" --yesno "If the update was to big, it's recommended restart, and then continue with the script. Yes = Continue, No = Exit" 0 0
+        if [ ! $? = 0 ]
         then
-            reboot
+            exit
         fi
     fi
     dialog --title "dnf" --yesno "remove unnecessary packages and clean chache from dnf?" 0 0
@@ -171,10 +171,10 @@ then
     then
         clear
         pacman -Syu
-        dialog --title "Alert" --yesno "If the update was to big, it's recommended restart, and then continue with the script. Restart the system?" 0 0
-        if [ $? = 0 ]
+        dialog --title "Alert" --yesno "If the update was to big, it's recommended restart, and then continue with the script. Yes = Continue, No = Exit" 0 0
+        if [ ! $? = 0 ]
         then
-            reboot
+            exit
         fi
     fi
     dialog --title "pacman" --yesno "remove unnecessary packages and clean chache from pacman?" 0 0
@@ -192,10 +192,10 @@ then
     then
         clear
         eopkg upgrade
-        dialog --title "Alert" --yesno "If the update was to big, it's recommended restart, and then continue with the script. Restart the system?" 0 0
-        if [ $? = 0 ]
+        dialog --title "Alert" --yesno "If the update was to big, it's recommended restart, and then continue with the script. Yes = Continue, No = Exit" 0 0
+        if [ ! $? = 0 ]
         then
-            reboot
+            exit
         fi
     fi
     dialog --title "eopkg" --yesno "clean cache from eopkg?" 0 0
