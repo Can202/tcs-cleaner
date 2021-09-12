@@ -8,6 +8,35 @@ then
 		echo $version
 		exit
 	fi
+	if [ $1 = "-h" ] || [ $1 = "--help" ]
+	then
+		echo "tcs-cleaner: clean
+		
+Use as root:
+	tcs-cleaner <user>
+	
+commands:
+	-h or --help		help
+	-v or --version		see version"
+		exit
+	fi
+	if [ ! $(getent passwd $1) = "" ]
+	then
+		user=$1
+	else
+		echo "$1 not exists"
+		exit
+	fi
+else
+	echo "your user?"
+	read user
+	if [ ! $(getent passwd $user) = "" ]
+	then
+		echo "good"
+	else
+		echo "$user not exists"
+		exit
+	fi
 fi
 
 clear
@@ -98,15 +127,15 @@ fi
 dialog --title "tmp" --yesno "Clean temps folder (thumbnails, tmp directory, etc)" 0 0
 if [ $? = 0 ]
 then
-    rm -vfr /tmp/*
-    rm -vfr /var/tmp/*
-    rm -vfr ~/.cache/thumbnails/*
-    rm -vfr ~/.thumbs/*
+	rm -vrf /tmp/* 2>/dev/null
+	rm -vrf /var/tmp/* 2>/dev/null
+	rm -vrf ~/.cache/thumbnails/* 2>/dev/null
+	rm -vrf ~/.thumbs/* 2>/dev/null
 fi
 dialog --title "trash" --yesno "Clean trash?" 0 0
 if [ $? = 0 ]
 then
-    rm -vfr ~/.local/share/Trash/*
+    su $user -c 'rm -vfr ~/.local/share/Trash/*'
 fi
 
 #gestor de paquetes
