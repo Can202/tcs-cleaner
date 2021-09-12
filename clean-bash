@@ -5,14 +5,13 @@ then
     dialog --title "root" --msgbox "You need root" 0 0
     clear
     exit
-    clear
 fi
 
 dialog --title "Alert" --yesno "this script is a thorough cleaning, recommended: read very well, what the script is doing. Continue?" 0 0
 if [ ! $? = 0 ]
 then
-    exit
     clear
+    exit
 fi
 
 dialog --title "tmp" --yesno "Clean temps folder (thumbnails, tmp directory, etc)" 0 0
