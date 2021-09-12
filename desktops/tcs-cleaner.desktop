@@ -1,7 +1,7 @@
 [Desktop Entry]
 Categories=Utility
 Exec=tcs-cleaner --pkexec
-Icon=Terminal
+Icon=tcs-cleaner
 Name=Tcs Cleaner
 Terminal=true
 Type=Application
