@@ -1,0 +1,7 @@
+ [Desktop Entry]
+Categories=Utility
+Exec=tcs-cleaner --su
+Icon=Terminal
+Name=Tcs Cleaner (su)
+Terminal=true
+Type=Application

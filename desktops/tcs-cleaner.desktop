@@ -1,0 +1,7 @@
+[Desktop Entry]
+Categories=Utility
+Exec=tcs-cleaner --pkexec
+Icon=Terminal
+Name=Tcs Cleaner
+Terminal=true
+Type=Application
