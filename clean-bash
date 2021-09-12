@@ -19,6 +19,7 @@ else
     echo "you don't have installed dialog"
     echo "Do you want to install dialog? (Y/n)"
     read install
+    read install
     if [ $install = "y" ] || [ $install = "Y" ]
     then
         echo "installing"
@@ -54,7 +55,6 @@ else
                 fi
             fi
         fi
-
     else
         echo "aborting"
         exit
