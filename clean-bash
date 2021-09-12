@@ -168,4 +168,6 @@ then
         flatpak update
     fi
 fi
+dialog --title "thank you" --msgbox "thank you to use my script, you can share it with your friends. if you think that they need it. Bye!" 0 0
+
 clear
