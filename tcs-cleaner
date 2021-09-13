@@ -132,6 +132,7 @@ fi
 dialog --title "News $version" --msgbox "Hi!
 - install icons first
 - new order
+- detect yum cache
 " 0 0
 
 
@@ -314,6 +315,15 @@ then
 			clear
 			dnf autoremove
 			dnf clean all
+		fi
+		if [ -f "/usr/bin/yum" ] || [ -f "/usr/sbin/yum" ] || [ -f "/usr/games/yum" ]
+		then
+			dialog --title "yum" --yesno "remove unnecessary packages and clean chache from yum?" 0 0
+			if [ $? = 0 ]
+			then
+				clear
+				yum clean all
+			fi
 		fi
 	fi
 	if [ $PAQ = "pacman" ]
