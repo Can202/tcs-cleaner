@@ -258,35 +258,6 @@ then
 	fi
 fi
 
-dialog --title "remove tmp files" --yesno "You can remove tmp files, if you want" 0 0
-if [ $? = 0 ]
-then
-	dialog --title "tmp" --yesno "Clean temps and cache folders:
-	- global tmp directory
-	- thumbnails user cache folder
-	- pip, firefox and flatpak user chache
-	" 0 0
-	if [ $? = 0 ]
-	then
-		rm -vrf /tmp/* 2>/dev/null
-		rm -vrf /var/tmp/* 2>/dev/null
-		su $user -c 'rm -vrf ~/.cache/thumbnails/* 2>/dev/null'
-		su $user -c 'rm -vrf ~/.thumbs/* 2>/dev/null'
-		su $user -c 'rm -vrf ~/.cache/pip/* 2>/dev/null'
-		su $user -c 'rm -vrf ~/.cache/mozilla/firefox/* 2>/dev/null'
-		su $user -c 'rm -vrf ~/.cache/flatpak/* 2>/dev/null'
-		
-		
-	fi
-	dialog --title "trash" --yesno "Clean trash?" 0 0
-	if [ $? = 0 ]
-	then
-		su $user -c 'rm -vfr ~/.local/share/Trash/info/* 2>/dev/null'
-		su $user -c 'mkdir -p /home/$user/.local/share/Trash/info'
-
-	fi
-fi
-
 
 
 dialog --title "remove cache" --yesno "You can remove cache files of a package manager, if you want" 0 0
@@ -361,6 +332,37 @@ then
 		fi
 	fi
 fi
+
+
+dialog --title "remove tmp files" --yesno "You can remove tmp files, if you want" 0 0
+if [ $? = 0 ]
+then
+	dialog --title "tmp" --yesno "Clean temps and cache folders:
+	- global tmp directory
+	- thumbnails user cache folder
+	- pip, firefox and flatpak user chache
+	" 0 0
+	if [ $? = 0 ]
+	then
+		rm -vrf /tmp/* 2>/dev/null
+		rm -vrf /var/tmp/* 2>/dev/null
+		su $user -c 'rm -vrf ~/.cache/thumbnails/* 2>/dev/null'
+		su $user -c 'rm -vrf ~/.thumbs/* 2>/dev/null'
+		su $user -c 'rm -vrf ~/.cache/pip/* 2>/dev/null'
+		su $user -c 'rm -vrf ~/.cache/mozilla/firefox/* 2>/dev/null'
+		su $user -c 'rm -vrf ~/.cache/flatpak/* 2>/dev/null'
+		
+		
+	fi
+	dialog --title "trash" --yesno "Clean trash?" 0 0
+	if [ $? = 0 ]
+	then
+		su $user -c 'rm -vfr ~/.local/share/Trash/info/* 2>/dev/null'
+		su $user -c 'mkdir -p /home/$user/.local/share/Trash/info'
+
+	fi
+fi
+
 
 
 
