@@ -78,7 +78,7 @@ then
     PAQ="zypper"
     if [ ! -f "/bin/dialog" ] || [ ! -f "/bin/curl" ]
     then
-    yes | zypper -n install dialog curl coreutils bash
+    zypper -n install dialog curl coreutils bash
     fi
 fi
 if [ -f "/usr/bin/apt" ] || [ -f "/usr/sbin/apt" ] || [ -f "/usr/games/apt" ]
