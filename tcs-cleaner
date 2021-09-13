@@ -349,7 +349,7 @@ then
 	dialog --title "trash" --yesno "Clean trash?" 0 0
 	if [ $? = 0 ]
 	then
-		su $user -c 'rm -vfr ~/.local/share/Trash/* 2>/dev/null'
+		su $user -c 'rm -vrf ~/.local/share/Trash/* 2>/dev/null'
 		su $user -c 'mkdir -p ~/.local/share/Trash/info/'
 		su $user -c 'mkdir -p ~/.local/share/Trash/files/'
 
