@@ -126,7 +126,7 @@ then
 fi
 
 dialog --title "News $version" --msgbox "Hi!
-- all cache files, with 5 day without access
+- remove all cache files, with 5 day without access
 " 0 0
 
 
