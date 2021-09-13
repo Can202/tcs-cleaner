@@ -130,6 +130,7 @@ dialog --title "News $version" --msgbox "Hi!
 - new order
 - detect yum cache
 - flatpak user cache
+- new installer dependencies system
 " 0 0
 
 
