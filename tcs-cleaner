@@ -185,12 +185,6 @@ then
 			clear
 			zypper ref
 			zypper up
-			dialog --title "Alert" --yesno "If the update was to big, it's recommended restart, and then continue with the script. Yes = Continue, No = Exit" 0 0
-			if [ ! $? = 0 ]
-			then
-				clear
-				exit
-			fi
 		fi
 	fi
 	if [ $PAQ = "apt" ]
@@ -201,12 +195,6 @@ then
 			clear
 			apt update
 			apt upgrade
-			dialog --title "Alert" --yesno "If the update was to big, it's recommended restart, and then continue with the script. Yes = Continue, No = Exit" 0 0
-			if [ ! $? = 0 ]
-			then
-				clear
-				exit
-			fi
 		fi
 	fi
 	if [ $PAQ = "dnf" ]
@@ -216,12 +204,6 @@ then
 		then
 			clear
 			dnf upgrade --refresh
-			dialog --title "Alert" --yesno "If the update was to big, it's recommended restart, and then continue with the script. Yes = Continue, No = Exit" 0 0
-			if [ ! $? = 0 ]
-			then
-				clear
-				exit
-			fi
 		fi
 	fi
 	if [ $PAQ = "pacman" ]
@@ -231,12 +213,6 @@ then
 		then
 			clear
 			pacman -Syu
-			dialog --title "Alert" --yesno "If the update was to big, it's recommended restart, and then continue with the script. Yes = Continue, No = Exit" 0 0
-			if [ ! $? = 0 ]
-			then
-				clear
-				exit
-			fi
 		fi
 	fi
 	if [ $PAQ = "eopkg" ]
@@ -246,13 +222,13 @@ then
 		then
 			clear
 			eopkg upgrade
-			dialog --title "Alert" --yesno "If the update was to big, it's recommended restart, and then continue with the script. Yes = Continue, No = Exit" 0 0
-			if [ ! $? = 0 ]
-			then
-				clear
-				exit
-			fi
 		fi
+	fi
+	dialog --title "Alert" --yesno "If the update was to big, it's recommended restart, and then continue with the script. Yes = Continue, No = Exit" 0 0
+	if [ ! $? = 0 ]
+	then
+		clear
+		exit
 	fi
 	
 	
