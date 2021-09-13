@@ -1,5 +1,5 @@
 #!/bin/bash
-version="v0.3"
+version="v0.3-1"
 
 if [ ! -z $1 ]
 then
@@ -349,8 +349,9 @@ then
 	dialog --title "trash" --yesno "Clean trash?" 0 0
 	if [ $? = 0 ]
 	then
-		su $user -c 'rm -vfr ~/.local/share/Trash/info/* 2>/dev/null'
-		su $user -c 'mkdir -p /home/$user/.local/share/Trash/info'
+		su $user -c 'rm -vfr ~/.local/share/Trash/* 2>/dev/null'
+		su $user -c 'mkdir -p ~/.local/share/Trash/info/'
+		su $user -c 'mkdir -p ~/.local/share/Trash/files/'
 
 	fi
 fi
