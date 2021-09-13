@@ -1,5 +1,5 @@
 #!/bin/bash
-version="v0.2-4"
+version="v0.3"
 
 if [ ! -z $1 ]
 then
@@ -126,11 +126,7 @@ then
 fi
 
 dialog --title "News $version" --msgbox "Hi!
-- install icons first
-- new order
-- detect yum cache
-- flatpak user cache
-- new installer dependencies system
+- divide cache from tmp
 " 0 0
 
 
@@ -311,22 +307,26 @@ fi
 dialog --title "remove tmp files" --yesno "You can remove tmp files, if you want" 0 0
 if [ $? = 0 ]
 then
-	dialog --title "tmp" --yesno "Clean temps and cache folders:
+	dialog --title "tmp" --yesno "Clean temps folders:
 	- global tmp directory
-	- thumbnails user cache folder
-	- pip, firefox and flatpak user chache
 	" 0 0
 	if [ $? = 0 ]
 	then
 		rm -vrf /tmp/* 2>/dev/null
 		rm -vrf /var/tmp/* 2>/dev/null
+	fi
+	
+	dialog --title "user cache" --yesno "Clean cache folders:
+	- thumbnails user cache folder
+	- pip, firefox and flatpak user chache
+	" 0 0
+	if [ $? = 0 ]
+	then
 		su $user -c 'rm -vrf ~/.cache/thumbnails/* 2>/dev/null'
 		su $user -c 'rm -vrf ~/.thumbs/* 2>/dev/null'
 		su $user -c 'rm -vrf ~/.cache/pip/* 2>/dev/null'
 		su $user -c 'rm -vrf ~/.cache/mozilla/firefox/* 2>/dev/null'
 		su $user -c 'rm -vrf ~/.cache/flatpak/* 2>/dev/null'
-		
-		
 	fi
 	dialog --title "trash" --yesno "Clean trash?" 0 0
 	if [ $? = 0 ]
