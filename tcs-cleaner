@@ -76,72 +76,30 @@ fi
 if [ -f "/usr/bin/zypper" ] || [ -f "/usr/sbin/zypper" ] || [ -f "/usr/games/zypper" ]
 then
     PAQ="zypper"
+    zypper -n install dialog curl coreutils bash
 fi
 if [ -f "/usr/bin/apt" ] || [ -f "/usr/sbin/apt" ] || [ -f "/usr/games/apt" ]
 then
 	PAQ="apt"
+	apt install -y dialog curl coreutils bash
 fi
 if [ -f "/usr/bin/dnf" ] || [ -f "/usr/sbin/dnf" ] || [ -f "/usr/games/dnf" ]
 then
 	PAQ="dnf"
+	dnf -y install dialog curl coreutils bash
 fi
 if [ -f "/usr/bin/pacman" ] || [ -f "/usr/sbin/pacman" ] || [ -f "/usr/games/pacman" ]
 then
 	PAQ="pacman"
+	yes | sudo pacman -S dialog curl coreutils bash
 fi
 if [ -f "/usr/bin/eopkg" ] || [ -f "/usr/sbin/eopkg" ] || [ -f "/usr/games/eopkg" ]
 then
 	PAQ="eopkg"
+	eopkg install dialog curl coreutils bash
 fi
+clear
 
-
-if [ -f "/usr/bin/dialog" ] || [ -f "/usr/sbin/dialog" ] || [ -f "/usr/games/dialog" ]
-then
-    echo
-else
-    echo "you don't have installed dialog"
-    echo "Do you want to install dialog? (Y/n)"
-    read install
-    if [ $install = "y" ] || [ $install = "Y" ]
-    then
-        echo "installing"
-        if [ -f "/usr/bin/zypper" ] || [ -f "/usr/sbin/zypper" ] || [ -f "/usr/games/zypper" ]
-        then
-            echo zypper detected
-            zypper in dialog curl
-        else
-            if [ -f "/usr/bin/apt" ] || [ -f "/usr/sbin/apt" ] || [ -f "/usr/games/apt" ]
-            then
-                echo apt detected
-                apt install dialog curl
-            else
-                if [ -f "/usr/bin/dnf" ] || [ -f "/usr/sbin/dnf" ] || [ -f "/usr/games/dnf" ]
-                then
-                    echo dnf detected
-                    dnf install dialog curl
-                else
-                    if [ -f "/usr/bin/pacman" ] || [ -f "/usr/sbin/pacman" ] || [ -f "/usr/games/pacman" ]
-                    then
-                        echo pacman detected
-                        pacman -S dialog curl
-                    else
-                        if [ -f "/usr/bin/eopkg" ] || [ -f "/usr/sbin/eopkg" ] || [ -f "/usr/games/eopkg" ]
-                        then
-                            echo eopkg detected
-                            eopkg install dialog curl
-                        else
-                            echo "aborting"
-                            exit
-                        fi
-                    fi
-                fi
-            fi
-        fi
-    else
-        echo "aborting"
-        exit
-    fi
-fi
 
 
 last_version=$(curl https://raw.githubusercontent.com/Can202/tcs-cleaner/main/version)
