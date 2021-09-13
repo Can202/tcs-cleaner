@@ -40,7 +40,7 @@ commands:
 	-v or --version		see version"
 		exit
 	fi
-	if [ ! $(getent passwd $1) = "" ]
+	if [[ ! $(getent passwd $1) = "" ]]
 	then
 		user=$1
 	else
