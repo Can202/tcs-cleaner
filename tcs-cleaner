@@ -126,10 +126,7 @@ then
 fi
 
 dialog --title "News $version" --msgbox "Hi!
-- divide cache from tmp
-- add fontconfig to user cache
-- add ~/.thumbnails/ to user cache
-- flatpak cache
+- erase trash files
 " 0 0
 
 
