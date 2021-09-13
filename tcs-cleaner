@@ -1,5 +1,5 @@
 #!/bin/bash
-version="v0.3-2"
+version="v0.3-3"
 
 if [ ! -z $1 ]
 then
@@ -126,8 +126,7 @@ then
 fi
 
 dialog --title "News $version" --msgbox "Hi!
-- reopen after you update
-- add mesa_shader_cache, kwin, openSUSE and dolphin temp Folder to cache
+- all cache files, with 5 day without access
 " 0 0
 
 
@@ -332,9 +331,14 @@ then
 	- thumbnails user cache folder
 	- pip, firefox and flatpak user chache
 	- fontconfig and mesa_shader_cache cache
+	- all cache files, with 5 day without access
 	" 0 0
 	if [ $? = 0 ]
 	then
+		su $user -c 'find ~/.cache/ -atime +5 -exec rm -vrf {} \;'
+		su $user -c 'mkdir -p ~/.cache/'
+	
+	
 		su $user -c 'rm -vrf ~/.cache/thumbnails/* 2>/dev/null'
 		su $user -c 'rm -vrf ~/.thumbs/* 2>/dev/null'
 		su $user -c 'rm -vrf ~/.thumbnails/* 2>/dev/null'
