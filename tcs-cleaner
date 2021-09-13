@@ -127,6 +127,9 @@ fi
 
 dialog --title "News $version" --msgbox "Hi!
 - divide cache from tmp
+- add fontconfig to user cache
+- add ~/.thumbnails/ to user cache
+- flatpak cache
 " 0 0
 
 
@@ -292,6 +295,16 @@ then
 			eopkg delete-cache
 		fi
 	fi
+	if [ -f "/usr/bin/flatpak" ] || [ -f "/usr/sbin/flatpak" ] || [ -f "/usr/games/flatpak" ]
+	then
+		dialog --title "flatpak" --yesno "clean cache from flatpak?" 0 0
+		if [ $? = 0 ]
+		then
+			su $user -c 'rm -vrf ~/.cache/flatpak/* 2>/dev/null'
+			rm -vrf /var/tmp/flatpak-cache/*
+			
+		fi
+	fi
 	
 	if [ -f "/usr/bin/snap" ] || [ -f "/usr/sbin/snap" ] || [ -f "/usr/games/snap" ]
 	then
@@ -319,14 +332,19 @@ then
 	dialog --title "user cache" --yesno "Clean cache folders:
 	- thumbnails user cache folder
 	- pip, firefox and flatpak user chache
+	- fontconfig cache
 	" 0 0
 	if [ $? = 0 ]
 	then
 		su $user -c 'rm -vrf ~/.cache/thumbnails/* 2>/dev/null'
 		su $user -c 'rm -vrf ~/.thumbs/* 2>/dev/null'
+		su $user -c 'rm -vrf ~/.thumbnails/* 2>/dev/null'
+		
 		su $user -c 'rm -vrf ~/.cache/pip/* 2>/dev/null'
 		su $user -c 'rm -vrf ~/.cache/mozilla/firefox/* 2>/dev/null'
 		su $user -c 'rm -vrf ~/.cache/flatpak/* 2>/dev/null'
+		su $user -c 'rm -vrf ~/.cache/fontconfig/* 2>/dev/null'
+		
 	fi
 	dialog --title "trash" --yesno "Clean trash?" 0 0
 	if [ $? = 0 ]
