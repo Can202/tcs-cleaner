@@ -133,6 +133,7 @@ dialog --title "News $version" --msgbox "Hi!
 - install icons first
 - new order
 - detect yum cache
+- flatpak user cache
 " 0 0
 
 
@@ -260,7 +261,7 @@ then
 	dialog --title "tmp" --yesno "Clean temps and cache folders:
 	- global tmp directory
 	- thumbnails user cache folder
-	- pip and firefox user chache
+	- pip, firefox and flatpak user chache
 	" 0 0
 	if [ $? = 0 ]
 	then
@@ -270,6 +271,8 @@ then
 		su $user -c 'rm -vrf ~/.thumbs/* 2>/dev/null'
 		su $user -c 'rm -vrf ~/.cache/pip/* 2>/dev/null'
 		su $user -c 'rm -vrf ~/.cache/mozilla/firefox/* 2>/dev/null'
+		su $user -c 'rm -vrf ~/.cache/flatpak/* 2>/dev/null'
+		
 		
 	fi
 	dialog --title "trash" --yesno "Clean trash?" 0 0
