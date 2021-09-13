@@ -130,9 +130,8 @@ then
 fi
 
 dialog --title "News $version" --msgbox "Hi!
-- fix desktops files
-- add pip cache
-- add firefox cache
+- install icons first
+- new order
 " 0 0
 
 
@@ -153,170 +152,226 @@ then
 	fi
 fi
 
-
-dialog --title "tmp" --yesno "Clean temps and cache folders:
-- global tmp directory
-- thumbnails user cache folder
-- pip and firefox user chache
-" 0 0
-if [ $? = 0 ]
-then
-	rm -vrf /tmp/* 2>/dev/null
-	rm -vrf /var/tmp/* 2>/dev/null
-	su $user -c 'rm -vrf ~/.cache/thumbnails/* 2>/dev/null'
-	su $user -c 'rm -vrf ~/.thumbs/* 2>/dev/null'
-	su $user -c 'rm -vrf ~/.cache/pip/* 2>/dev/null'
-	su $user -c 'rm -vrf ~/.cache/mozilla/firefox/* 2>/dev/null'
-	
-fi
-dialog --title "trash" --yesno "Clean trash?" 0 0
-if [ $? = 0 ]
-then
-    su $user -c 'rm -vfr ~/.local/share/Trash/info/* 2>/dev/null'
-	su $user -c 'mkdir -p /home/$user/.local/share/Trash/info'
-
-fi
-
-#gestor de paquetes
+# Detect package manager
 if [ -f "/usr/bin/zypper" ] || [ -f "/usr/sbin/zypper" ] || [ -f "/usr/games/zypper" ]
 then
-    dialog --title "zypper" --yesno "Update from zypper?" 0 0
-    if [ $? = 0 ]
-    then
-        clear
-        zypper ref
-        zypper up
-        dialog --title "Alert" --yesno "If the update was to big, it's recommended restart, and then continue with the script. Yes = Continue, No = Exit" 0 0
-        if [ ! $? = 0 ]
-        then
-			clear
-            exit
-        fi
-    fi
-    dialog --title "zypper" --yesno "remove unnecessary packages and clean chache from zypper?" 0 0
-    if [ $? = 0 ]
-    then
-        clear
-        zypper packages --unneeded | awk -F'|' 'NR==0 || NR==1 || NR==2 || NR==3 || NR==4 {next} {print $3}' | grep -v Name | sudo xargs zypper remove --clean-deps
-        zypper cc
-    fi
+    PAQ="zypper"
 fi
 if [ -f "/usr/bin/apt" ] || [ -f "/usr/sbin/apt" ] || [ -f "/usr/games/apt" ]
 then
-    dialog --title "apt" --yesno "Update from apt?" 0 0
-    if [ $? = 0 ]
-    then
-        clear
-        apt update
-        apt upgrade
-        dialog --title "Alert" --yesno "If the update was to big, it's recommended restart, and then continue with the script. Yes = Continue, No = Exit" 0 0
-        if [ ! $? = 0 ]
-        then
-			clear
-            exit
-        fi
-    fi
-    dialog --title "apt" --yesno "remove unnecessary packages and clean chache from apt?" 0 0
-    if [ $? = 0 ]
-    then
-        clear
-        apt autoremove
-        apt autoclean
-        apt clean
-    fi
+	PAQ="apt"
 fi
 if [ -f "/usr/bin/dnf" ] || [ -f "/usr/sbin/dnf" ] || [ -f "/usr/games/dnf" ]
 then
-    dialog --title "dnf" --yesno "Update from dnf?" 0 0
-    if [ $? = 0 ]
-    then
-        clear
-        dnf upgrade --refresh
-        dialog --title "Alert" --yesno "If the update was to big, it's recommended restart, and then continue with the script. Yes = Continue, No = Exit" 0 0
-        if [ ! $? = 0 ]
-        then
-			clear
-            exit
-        fi
-    fi
-    dialog --title "dnf" --yesno "remove unnecessary packages and clean chache from dnf?" 0 0
-    if [ $? = 0 ]
-    then
-        clear
-        dnf autoremove
-        dnf clean all
-    fi
+	PAQ="dnf"
 fi
 if [ -f "/usr/bin/pacman" ] || [ -f "/usr/sbin/pacman" ] || [ -f "/usr/games/pacman" ]
 then
-    dialog --title "pacman" --yesno "Update from pacman?" 0 0
-    if [ $? = 0 ]
-    then
-        clear
-        pacman -Syu
-        dialog --title "Alert" --yesno "If the update was to big, it's recommended restart, and then continue with the script. Yes = Continue, No = Exit" 0 0
-        if [ ! $? = 0 ]
-        then
-			clear
-            exit
-        fi
-    fi
-    dialog --title "pacman" --yesno "remove unnecessary packages and clean chache from pacman?" 0 0
-    if [ $? = 0 ]
-    then
-        clear
-        pacman -Rs $(pacman -Qtdq)
-        pacman -Sc
-    fi
+	PAQ="pacman"
 fi
 if [ -f "/usr/bin/eopkg" ] || [ -f "/usr/sbin/eopkg" ] || [ -f "/usr/games/eopkg" ]
 then
-    dialog --title "eopkg" --yesno "Update from eopkg?" 0 0
-    if [ $? = 0 ]
-    then
-        clear
-        eopkg upgrade
-        dialog --title "Alert" --yesno "If the update was to big, it's recommended restart, and then continue with the script. Yes = Continue, No = Exit" 0 0
-        if [ ! $? = 0 ]
-        then
+	PAQ="eopkg"
+fi
+
+dialog --title "Update System" --yesno "You can update your machine if you want" 0 0
+if [ $? = 0 ]
+then
+	if [ $PAQ = "zypper" ]
+	then
+		dialog --title "zypper" --yesno "Update from zypper?" 0 0
+		if [ $? = 0 ]
+		then
 			clear
-            exit
-        fi
-    fi
-    dialog --title "eopkg" --yesno "clean cache from eopkg?" 0 0
-    if [ $? = 0 ]
-    then
-        clear
-        eopkg delete-cache
-    fi
+			zypper ref
+			zypper up
+			dialog --title "Alert" --yesno "If the update was to big, it's recommended restart, and then continue with the script. Yes = Continue, No = Exit" 0 0
+			if [ ! $? = 0 ]
+			then
+				clear
+				exit
+			fi
+		fi
+	fi
+	if [ $PAQ = "apt" ]
+	then
+		dialog --title "apt" --yesno "Update from apt?" 0 0
+		if [ $? = 0 ]
+		then
+			clear
+			apt update
+			apt upgrade
+			dialog --title "Alert" --yesno "If the update was to big, it's recommended restart, and then continue with the script. Yes = Continue, No = Exit" 0 0
+			if [ ! $? = 0 ]
+			then
+				clear
+				exit
+			fi
+		fi
+	fi
+	if [ $PAQ = "dnf" ]
+	then
+		dialog --title "dnf" --yesno "Update from dnf?" 0 0
+		if [ $? = 0 ]
+		then
+			clear
+			dnf upgrade --refresh
+			dialog --title "Alert" --yesno "If the update was to big, it's recommended restart, and then continue with the script. Yes = Continue, No = Exit" 0 0
+			if [ ! $? = 0 ]
+			then
+				clear
+				exit
+			fi
+		fi
+	fi
+	if [ $PAQ = "pacman" ]
+	then
+		dialog --title "pacman" --yesno "Update from pacman?" 0 0
+		if [ $? = 0 ]
+		then
+			clear
+			pacman -Syu
+			dialog --title "Alert" --yesno "If the update was to big, it's recommended restart, and then continue with the script. Yes = Continue, No = Exit" 0 0
+			if [ ! $? = 0 ]
+			then
+				clear
+				exit
+			fi
+		fi
+	fi
+	if [ $PAQ = "eopkg" ]
+	then
+		dialog --title "eopkg" --yesno "Update from eopkg?" 0 0
+		if [ $? = 0 ]
+		then
+			clear
+			eopkg upgrade
+			dialog --title "Alert" --yesno "If the update was to big, it's recommended restart, and then continue with the script. Yes = Continue, No = Exit" 0 0
+			if [ ! $? = 0 ]
+			then
+				clear
+				exit
+			fi
+		fi
+	fi
+	
+	
+	if [ -f "/usr/bin/flatpak" ] || [ -f "/usr/sbin/flatpak" ] || [ -f "/usr/games/flatpak" ]
+	then
+		dialog --title "flatpak" --yesno "Update flatpak?" 0 0
+		if [ $? = 0 ]
+		then
+			clear
+			flatpak update
+		fi
+	fi
+	
+	if [ -f "/usr/bin/snap" ] || [ -f "/usr/sbin/snap" ] || [ -f "/usr/games/snap" ]
+	then
+		dialog --title "snap" --yesno "Update snap?" 0 0
+		if [ $? = 0 ]
+		then
+			clear
+			snap refresh
+		fi
+	fi
 fi
 
-
-
-if [ -f "/usr/bin/snap" ] || [ -f "/usr/sbin/snap" ] || [ -f "/usr/games/snap" ]
+dialog --title "remove tmp files" --yesno "You can remove tmp files, if you want" 0 0
+if [ $? = 0 ]
 then
-    dialog --title "snap" --yesno "Update snap?" 0 0
-    if [ $? = 0 ]
-    then
-        clear
-        snap refresh
-    fi
-    dialog --title "snap" --yesno "clean cache from snap?" 0 0
-    if [ $? = 0 ]
-    then
-        rm -vrf /var/lib/snapd/cache/*
-    fi
-    
+	dialog --title "tmp" --yesno "Clean temps and cache folders:
+	- global tmp directory
+	- thumbnails user cache folder
+	- pip and firefox user chache
+	" 0 0
+	if [ $? = 0 ]
+	then
+		rm -vrf /tmp/* 2>/dev/null
+		rm -vrf /var/tmp/* 2>/dev/null
+		su $user -c 'rm -vrf ~/.cache/thumbnails/* 2>/dev/null'
+		su $user -c 'rm -vrf ~/.thumbs/* 2>/dev/null'
+		su $user -c 'rm -vrf ~/.cache/pip/* 2>/dev/null'
+		su $user -c 'rm -vrf ~/.cache/mozilla/firefox/* 2>/dev/null'
+		
+	fi
+	dialog --title "trash" --yesno "Clean trash?" 0 0
+	if [ $? = 0 ]
+	then
+		su $user -c 'rm -vfr ~/.local/share/Trash/info/* 2>/dev/null'
+		su $user -c 'mkdir -p /home/$user/.local/share/Trash/info'
+
+	fi
 fi
-if [ -f "/usr/bin/flatpak" ] || [ -f "/usr/sbin/flatpak" ] || [ -f "/usr/games/flatpak" ]
+
+
+
+dialog --title "remove cache" --yesno "You can remove cache files of a package manager, if you want" 0 0
+if [ $? = 0 ]
 then
-    dialog --title "flatpak" --yesno "Update flatpak?" 0 0
-    if [ $? = 0 ]
-    then
-        clear
-        flatpak update
-    fi
+	if [ $PAQ = "zypper" ]
+	then
+		dialog --title "zypper" --yesno "remove unnecessary packages and clean chache from zypper?" 0 0
+		if [ $? = 0 ]
+		then
+			clear
+			zypper packages --unneeded | awk -F'|' 'NR==0 || NR==1 || NR==2 || NR==3 || NR==4 {next} {print $3}' | grep -v Name | sudo xargs zypper remove --clean-deps
+			zypper cc
+		fi
+	fi
+	if [ $PAQ = "apt" ]
+	then
+		dialog --title "apt" --yesno "remove unnecessary packages and clean chache from apt?" 0 0
+		if [ $? = 0 ]
+		then
+			clear
+			apt autoremove
+			apt autoclean
+			apt clean
+		fi
+	fi
+	if [ $PAQ = "dnf" ]
+	then
+		dialog --title "dnf" --yesno "remove unnecessary packages and clean chache from dnf?" 0 0
+		if [ $? = 0 ]
+		then
+			clear
+			dnf autoremove
+			dnf clean all
+		fi
+	fi
+	if [ $PAQ = "pacman" ]
+	then
+		dialog --title "pacman" --yesno "remove unnecessary packages and clean chache from pacman?" 0 0
+		if [ $? = 0 ]
+		then
+			clear
+			pacman -Rs $(pacman -Qtdq)
+			pacman -Sc
+		fi
+	fi
+	if [ $PAQ = "eopkg" ]
+	then
+		dialog --title "eopkg" --yesno "clean cache from eopkg?" 0 0
+		if [ $? = 0 ]
+		then
+			clear
+			eopkg delete-cache
+		fi
+	fi
+	
+	if [ -f "/usr/bin/snap" ] || [ -f "/usr/sbin/snap" ] || [ -f "/usr/games/snap" ]
+	then
+		dialog --title "snap" --yesno "clean cache from snap?" 0 0
+		if [ $? = 0 ]
+		then
+			rm -vrf /var/lib/snapd/cache/*
+		fi
+	fi
 fi
+
+
+
 dialog --title "thank you" --msgbox "thank you to use my script, you can share it with your friends. if you think that they need it. Bye!" 0 0
 
 clear
