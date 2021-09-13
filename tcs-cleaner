@@ -126,7 +126,8 @@ then
 fi
 
 dialog --title "News $version" --msgbox "Hi!
-- erase trash files
+- fix error with zypper
+- fix error with detect if user exists.
 " 0 0
 
 
