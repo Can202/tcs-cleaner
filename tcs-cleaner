@@ -127,7 +127,7 @@ fi
 
 dialog --title "News $version" --msgbox "Hi!
 - reopen after you update
-- add mesa_shader_cache to cache
+- add mesa_shader_cache, kwin, openSUSE and dolphin temp Folder to cache
 " 0 0
 
 
@@ -344,7 +344,9 @@ then
 		su $user -c 'rm -vrf ~/.cache/flatpak/* 2>/dev/null'
 		su $user -c 'rm -vrf ~/.cache/fontconfig/* 2>/dev/null'
 		su $user -c 'rm -vrf ~/.cache/mesa_shader_cache/* 2>/dev/null'
-		
+		su $user -c 'rm -vrf ~/.cache/dolphin/* 2>/dev/null'
+		su $user -c 'rm -vrf ~/.cache/kwin/* 2>/dev/null'
+		su $user -c 'rm -vrf ~/.cache/openSUSE/* 2>/dev/null'
 		
 	fi
 	dialog --title "trash" --yesno "Clean trash?" 0 0
