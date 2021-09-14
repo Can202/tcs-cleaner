@@ -1,5 +1,5 @@
 #!/bin/bash
-version="v0.3-3"
+version="v0.3-4"
 
 if [ ! -z $1 ]
 then
@@ -126,7 +126,8 @@ then
 fi
 
 dialog --title "News $version" --msgbox "Hi!
-- all cache files, with 5 day without access
+- wait 10 days to remove files on .chache/
+- remove bash history
 " 0 0
 
 
@@ -327,6 +328,12 @@ then
 		rm -vrf /var/tmp/* 2>/dev/null
 	fi
 	
+	dialog --title "bash history" --yesno "Remove bash history" 0 0
+	if [ $? = 0 ]
+	then
+		su $user -c 'rm -vrf ~/.bash_history 2>/dev/null'
+	fi
+	
 	dialog --title "user cache" --yesno "Clean cache folders:
 	- thumbnails user cache folder
 	- pip, firefox and flatpak user chache
@@ -335,7 +342,7 @@ then
 	" 0 0
 	if [ $? = 0 ]
 	then
-		su $user -c 'find ~/.cache/ -atime +5 -exec rm -vrf {} \;'
+		su $user -c 'find ~/.cache/ -atime +10 -exec rm -vrf {} \;'
 		su $user -c 'mkdir -p ~/.cache/'
 	
 	
