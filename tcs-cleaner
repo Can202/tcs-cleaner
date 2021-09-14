@@ -1,5 +1,5 @@
 #!/bin/bash
-version="v0.4"
+version="v0.4.1"
 
 if [ ! -z $1 ]
 then
@@ -126,7 +126,7 @@ then
 fi
 
 dialog --title "News $version" --msgbox "Hi!
-- remove all cache flatpak apps, with 10 day without access
+- remove all cache snap apps, with 10 day without access
 " 0 0
 
 
@@ -338,14 +338,15 @@ then
 	- pip, firefox and flatpak user chache
 	- fontconfig and mesa_shader_cache cache
 	- all cache files, with 10 day without access
-	- all flatpak apps cache files, with 10 day without access
+	- all flatpak and snap apps cache files, with 10 day without access
 	" 0 0
 	if [ $? = 0 ]
 	then
 		su $user -c 'find ~/.cache/ -atime +10 -exec rm -vrf {} \;'
 		su $user -c 'mkdir -p ~/.cache/'
 		
-		su $user -c 'find ~/.var/app/*/cache/ -atime +10 -exec rm -vrf {} \;'
+		su $user -c 'find ~/.var/app/*/cache/* -atime +10 -exec rm -vrf {} \;'
+		su $user -c 'find ~/snap/*/common/.cache/* -atime +10 -exec rm -vrf {} \;'
 	
 	
 		su $user -c 'rm -vrf ~/.cache/thumbnails/* 2>/dev/null'
