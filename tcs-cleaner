@@ -315,7 +315,7 @@ then
 fi
 
 
-dialog --title "remove tmp files" --yesno "You can remove tmp files, if you want" 0 0
+dialog --title "remove tmp, cache files" --yesno "You can remove tmp files, if you want" 0 0
 if [ $? = 0 ]
 then
 	dialog --title "tmp" --yesno "Clean temps folders:
