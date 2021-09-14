@@ -126,12 +126,8 @@ then
 fi
 
 dialog --title "News $version" --msgbox "Hi!
-<<<<<<< HEAD
-- remove all cache files, with 5 day without access
-=======
 - wait 10 days to remove files on .chache/
 - remove bash history
->>>>>>> dev
 " 0 0
 
 
