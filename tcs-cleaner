@@ -127,6 +127,7 @@ fi
 
 dialog --title "News $version" --msgbox "Hi!
 - new order
+- add some wine cache
 " 0 0
 
 
