@@ -318,6 +318,7 @@ then
 	- pip, firefox and flatpak user chache
 	- fontconfig and mesa_shader_cache cache
 	- all cache files, with 10 day without access
+	- delete some cache files on wine
 	- all flatpak and snap apps cache files, with 10 day without access
 	" 0 0
 	if [ $? = 0 ]
