@@ -127,6 +127,7 @@ fi
 
 dialog --title "News $version" --msgbox "Hi!
 - tmux log files
+- godot games log files
 " 0 0
 
 
@@ -362,11 +363,12 @@ then
 	
 	dialog --title "bash history and logs files" --yesno "
 - Remove bash history
-- remove tmux log files
+- remove tmux and godot games logs files
 " 0 0
 	if [ $? = 0 ]
 	then	
 		su $user -c 'rm -vrf ~/tmux-* 2>/dev/null'
+		su $user -c 'rm -vrf ~/.local/share/godot/app_userdata/*/logs/* 2>/dev/null'
 		su $user -c 'rm -vrf ~/.bash_history 2>/dev/null'
 	fi
 	
