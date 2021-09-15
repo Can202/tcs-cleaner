@@ -80,32 +80,28 @@ then
     then
     zypper -n install dialog curl coreutils bash
     fi
-fi
-if [ -f "/usr/bin/apt" ] || [ -f "/usr/sbin/apt" ] || [ -f "/usr/games/apt" ]
+elif [ -f "/usr/bin/apt" ] || [ -f "/usr/sbin/apt" ] || [ -f "/usr/games/apt" ]
 then
 	PAQ="apt"
     if [ ! -f "/bin/dialog" ] || [ ! -f "/bin/curl" ]
     then
 	yes | apt install dialog curl coreutils bash
 	fi
-fi
-if [ -f "/usr/bin/dnf" ] || [ -f "/usr/sbin/dnf" ] || [ -f "/usr/games/dnf" ]
+elif [ -f "/usr/bin/dnf" ] || [ -f "/usr/sbin/dnf" ] || [ -f "/usr/games/dnf" ]
 then
 	PAQ="dnf"
     if [ ! -f "/bin/dialog" ] || [ ! -f "/bin/curl" ]
     then
 	yes | dnf -y install dialog curl coreutils bash
 	fi
-fi
-if [ -f "/usr/bin/pacman" ] || [ -f "/usr/sbin/pacman" ] || [ -f "/usr/games/pacman" ]
+elif [ -f "/usr/bin/pacman" ] || [ -f "/usr/sbin/pacman" ] || [ -f "/usr/games/pacman" ]
 then
 	PAQ="pacman"
     if [ ! -f "/bin/dialog" ] || [ ! -f "/bin/curl" ]
     then
 	yes | sudo pacman -S dialog curl coreutils bash
 	fi
-fi
-if [ -f "/usr/bin/eopkg" ] || [ -f "/usr/sbin/eopkg" ] || [ -f "/usr/games/eopkg" ]
+elif [ -f "/usr/bin/eopkg" ] || [ -f "/usr/sbin/eopkg" ] || [ -f "/usr/games/eopkg" ]
 then
 	PAQ="eopkg"
     if [ ! -f "/bin/dialog" ] || [ ! -f "/bin/curl" ]
