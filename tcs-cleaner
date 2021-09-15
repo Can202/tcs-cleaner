@@ -126,8 +126,7 @@ then
 fi
 
 dialog --title "News $version" --msgbox "Hi!
-- new order
-- add some wine cache
+- tmux log files
 " 0 0
 
 
@@ -361,9 +360,13 @@ then
 		rm -vrf /var/tmp/* 2>/dev/null
 	fi
 	
-	dialog --title "bash history" --yesno "Remove bash history" 0 0
+	dialog --title "bash history and logs files" --yesno "
+- Remove bash history
+- remove tmux log files
+" 0 0
 	if [ $? = 0 ]
-	then
+	then	
+		su $user -c 'rm -vrf ~/tmux-* 2>/dev/null'
 		su $user -c 'rm -vrf ~/.bash_history 2>/dev/null'
 	fi
 	
