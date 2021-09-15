@@ -369,6 +369,7 @@ then
 	then	
 		su $user -c 'rm -vrf ~/tmux-* 2>/dev/null'
 		su $user -c 'rm -vrf ~/.local/share/godot/app_userdata/*/logs/* 2>/dev/null'
+		su $user -c 'rm -vrf ~/.local/share/godot/app_userdata/*/mono/mono_logs/* 2>/dev/null'
 		su $user -c 'rm -vrf ~/.bash_history 2>/dev/null'
 	fi
 	
