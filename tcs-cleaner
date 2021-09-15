@@ -325,8 +325,10 @@ then
 		su $user -c 'mkdir -p ~/.cache/'
 		
 		su $user -c 'find ~/.var/app/*/cache/* -atime +10 -exec rm -vrf {} \;'
+
 		su $user -c 'find ~/snap/*/common/.cache/* -atime +10 -exec rm -vrf {} \;'
 	
+		su $user -c 'find ~/.wine/drive_c/users/*/Temp/* -atime +10 -exec rm -vrf {} \;'
 	
 		su $user -c 'rm -vrf ~/.cache/thumbnails/* 2>/dev/null'
 		su $user -c 'rm -vrf ~/.thumbs/* 2>/dev/null'
