@@ -312,27 +312,6 @@ then
 			rm -vrf /var/lib/snapd/cache/*
 		fi
 	fi
-fi
-
-
-dialog --title "remove tmp, cache files" --yesno "You can remove tmp files, if you want" 0 0
-if [ $? = 0 ]
-then
-	dialog --title "tmp" --yesno "Clean temps folders:
-	- global tmp directory
-	" 0 0
-	if [ $? = 0 ]
-	then
-		rm -vrf /tmp/* 2>/dev/null
-		rm -vrf /var/tmp/* 2>/dev/null
-	fi
-	
-	dialog --title "bash history" --yesno "Remove bash history" 0 0
-	if [ $? = 0 ]
-	then
-		su $user -c 'rm -vrf ~/.bash_history 2>/dev/null'
-	fi
-	
 	dialog --title "user cache" --yesno "Clean cache folders:
 	- thumbnails user cache folder
 	- pip, firefox and flatpak user chache
@@ -363,6 +342,28 @@ then
 		su $user -c 'rm -vrf ~/.cache/openSUSE/* 2>/dev/null'
 		
 	fi
+fi
+
+
+dialog --title "remove tmp, trash or logs files" --yesno "You can remove tmp files, if you want" 0 0
+if [ $? = 0 ]
+then
+	dialog --title "tmp" --yesno "Clean temps folders:
+	- global tmp directory
+	" 0 0
+	if [ $? = 0 ]
+	then
+		rm -vrf /tmp/* 2>/dev/null
+		rm -vrf /var/tmp/* 2>/dev/null
+	fi
+	
+	dialog --title "bash history" --yesno "Remove bash history" 0 0
+	if [ $? = 0 ]
+	then
+		su $user -c 'rm -vrf ~/.bash_history 2>/dev/null'
+	fi
+	
+	
 	dialog --title "trash" --yesno "Clean trash?" 0 0
 	if [ $? = 0 ]
 	then
