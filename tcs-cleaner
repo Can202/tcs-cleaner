@@ -1,5 +1,5 @@
 #!/bin/bash
-version="v0.4.1"
+version="v0.4.2"
 
 if [ ! -z $1 ]
 then
@@ -126,7 +126,7 @@ then
 fi
 
 dialog --title "News $version" --msgbox "Hi!
-- remove all cache snap apps, with 10 day without access
+- new order
 " 0 0
 
 
