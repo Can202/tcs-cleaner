@@ -1,5 +1,5 @@
 #!/usr/bin/bash
-version="v0.4.5"
+version="v0.4.6"
 
 if [ ! -z $1 ]
 then
@@ -122,8 +122,7 @@ then
 fi
 
 dialog --title "News $version" --msgbox "Hi!
-- tmux log files
-- godot games log files
+- fix pacman error
 " 0 0
 
 
